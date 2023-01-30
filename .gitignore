@@ -6,9 +6,6 @@ npm-debug.log*
 # Dependency directories
 node_modules/
 
-# TypeScript generated code
-*.js
-*.js.map
 
 # Config files
 .env
