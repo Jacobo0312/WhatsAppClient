@@ -1,0 +1,45 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# TypeScript generated code
+*.js
+*.js.map
+
+# Config files
+.env
+
+# Build artifacts
+dist/
+build/
+
+# Executable files
+*.exe
+
+# Operating system generated files
+.DS_Store
+Thumbs.db
+
+# Env files
+.env.*
+
+# Yarn cache
+.yarn-cache/
+
+# dotenv environment variables file
+.env
+
+# Express session data
+.sessions/
+
+# Local environment variables
+.env.local
+.env.*.local
+
+# WhatsApp Auth
+.wwebjs_auth
+
