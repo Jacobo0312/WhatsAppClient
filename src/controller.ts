@@ -20,8 +20,15 @@ class Controller {
 
   sendMessage = async (req: Request, res: Response) => {
     const {number, text} = req.params
-    const response = await this.whatsAppClient.sendMessage(number, text)
-    res.send(response)
+    try {
+      const response = await this.whatsAppClient.sendMessage(number, text)
+      res.send(response)
+    } catch (error) {
+      this.whatsAppClient.disconnect()
+      res.send(`Error sending message to ${number}: ${error}`)
+    } finally {
+      res.end()
+    }
   }
 }
 

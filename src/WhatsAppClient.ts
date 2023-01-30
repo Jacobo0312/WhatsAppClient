@@ -40,6 +40,11 @@ class WhatsAppClient {
     return this.authenticated
   }
 
+  public disconnect() {
+    this.authenticated = false
+    this.initialize()
+  }
+
   public getQr(): string {
     return this.qr
   }
@@ -49,21 +54,8 @@ class WhatsAppClient {
       return 'Client is not authenticated!'
     }
 
-    const res = await this.client
-      .sendMessage(number + '@c.us', text)
-      .then(response => {
-        if (response.id.fromMe) {
-          return `Message successfully sent to ${number}`
-        } else {
-          return `Message failed to send to ${number}`
-        }
-      })
-      .catch(error => {
-        this.initialize()
-        return `Error sending message to ${number}: ${error}`
-      })
-
-    return res
+    await this.client.sendMessage(number + '@c.us', text)
+    return `Message successfully sent to ${number}`
   }
 }
 
