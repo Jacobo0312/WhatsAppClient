@@ -2,15 +2,16 @@ import {Client as ClientClass, LocalAuth} from 'whatsapp-web.js'
 
 class WhatsAppClient {
   private static instance: WhatsAppClient | null = null
-
   private client: ClientClass
-  private authenticated = false
-  private qr = ''
+  private authenticated: boolean
+  private qr: string
 
   private constructor() {
     this.client = new ClientClass({
       authStrategy: new LocalAuth()
     })
+    this.authenticated = false
+    this.qr = ''
     this.initialize()
   }
 
@@ -39,6 +40,10 @@ class WhatsAppClient {
     return this.authenticated
   }
 
+  public getQr(): string {
+    return this.qr
+  }
+
   public async sendMessage(number: string, text: string) {
     if (!this.authenticated) {
       return 'Client is not authenticated!'
@@ -49,6 +54,8 @@ class WhatsAppClient {
       .then(response => {
         if (response.id.fromMe) {
           return `Message successfully sent to ${number}`
+        } else {
+          return `Message failed to send to ${number}`
         }
       })
       .catch(error => {
@@ -57,10 +64,6 @@ class WhatsAppClient {
       })
 
     return res
-  }
-
-  public getQr(): string {
-    return this.qr
   }
 }
 
