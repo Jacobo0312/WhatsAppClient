@@ -6,9 +6,11 @@
   "author": "Jacobo Garcia",
   "scripts": {
     "dev": "ts-node-dev . ",
-    "start": "node ./build/index.js",
+    "build": "npm run clean && tsc --p tsconfig.json",
+    "start": "node ./build/app.js",
     "format": "prettier . --write ",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "clean": "rm -rf build"
   },
   "dependencies": {
     "eslint-config-prettier": "^8.6.0",

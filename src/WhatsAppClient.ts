@@ -1,7 +1,7 @@
 import {Client as ClientClass, LocalAuth} from 'whatsapp-web.js'
 
 class WhatsAppClient {
-  private static instance: WhatsAppClient | null = null
+  private static instance: WhatsAppClient | null
   private client: ClientClass
   private authenticated: boolean
   private qr: string
