@@ -1,4 +1,5 @@
-import {Client as ClientClass, LocalAuth} from 'whatsapp-web.js'
+import {Client as ClientClass, LocalAuth, MessageMedia} from 'whatsapp-web.js'
+const qrcode = require('qrcode-terminal');
 
 class WhatsAppClient {
   private static instance: WhatsAppClient | null
@@ -23,9 +24,10 @@ class WhatsAppClient {
   }
 
   private initialize() {
+    console.log("Waiting for scan....")
     this.client.on('qr', (qr: string) => {
       this.qr = qr
-      console.log('QR RECEIVED', qr)
+      qrcode.generate(qr, {small: true});
     })
 
     this.client.on('ready', () => {
@@ -56,6 +58,16 @@ class WhatsAppClient {
 
     await this.client.sendMessage(number + '@c.us', text)
     return `Message successfully sent to ${number}`
+  }
+
+  public async sendAudio(number: string, audioBuffer: Buffer) {
+    if (!this.authenticated) {
+      return 'Client is not authenticated!';
+    }
+
+    const audioBase64 = audioBuffer.toString('base64');
+    const media = new MessageMedia('audio/mp3', audioBase64);
+    await this.client.sendMessage(number + '@c.us', media);
   }
 }
 
